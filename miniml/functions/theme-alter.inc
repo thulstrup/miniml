@@ -5,10 +5,25 @@
  */
 function miniml_html_head_alter(&$elements) {
   // Remove some meta tag.
-  unset($elements['system_meta_generator']);
-  unset($elements['metatag_canonical']);
-  unset($elements['metatag_generator']);
-  unset($elements['metatag_shortlink']);
+  foreach ($elements as $key => $element) {
+    if (isset($element['#attributes']['name']) && $element['#attributes']['name'] == 'Generator') {
+      unset($elements[$key]);
+    }
+    if (isset($element['#attributes']['rel']) && $element['#attributes']['rel'] == 'canonical') {
+      unset($elements[$key]);
+    }
+    if (isset($element['#attributes']['rel']) && $element['#attributes']['rel'] == 'shortlink') {
+      unset($elements[$key]);
+    }
+    // Remove RSS meta tag.
+    if (isset($element['#attributes']['rel']) && $element['#attributes']['rel'] == 'alternate') {
+      unset($elements[$key]);
+    }
+    // Remove favicon meta tag.
+    if (isset($element['#attributes']['rel']) && $element['#attributes']['rel'] == 'shortcut icon') {
+      //unset($elements[$key]);
+    }
+  }
 }
 
 /**
