@@ -33,6 +33,63 @@ function miniml_preprocess_html(&$vars) {
     ),
   ), 'apple-mobile-web-app-title');
 
+  // Touch icon for third-generation iPad with high-resolution Retina display.
+  drupal_add_html_head(array(
+    '#tag' => 'link',
+    '#attributes' => array(
+      'rel' => 'apple-touch-icon-precomposed',
+      'sizes' => '144x144',
+      'href' => base_path() . path_to_theme() .'/images/apple-touch-icon-144x144-precomposed.png',
+    ),
+  ), 'touch-icon-144');
+
+  // Touch icon for iPhone with high-resolution Retina display.
+  drupal_add_html_head(array(
+    '#tag' => 'link',
+    '#attributes' => array(
+      'rel' => 'apple-touch-icon-precomposed',
+      'sizes' => '114x114',
+      'href' => base_path() . path_to_theme() .'/images/apple-touch-icon-114x114-precomposed.png',
+    ),
+  ), 'touch-icon-114');
+
+  // Touch icon for first- and second-generation iPad.
+  drupal_add_html_head(array(
+    '#tag' => 'link',
+    '#attributes' => array(
+      'rel' => 'apple-touch-icon-precomposed',
+      'sizes' => '72x72',
+      'href' => base_path() . path_to_theme() .'/images/apple-touch-icon-72x72-precomposed.png',
+    ),
+  ), 'touch-icon-72');
+
+  // Touch icon for non-Retina iPhone, iPod Touch, and Android 2.1+ devices.
+  drupal_add_html_head(array(
+    '#tag' => 'link',
+    '#attributes' => array(
+      'rel' => 'apple-touch-icon-precomposed',
+      'href' => base_path() . path_to_theme() .'/images/apple-touch-icon-precomposed.png',
+    ),
+  ), 'touch-icon');
+
+  // Metro tile icon (http://kremalicious.com/add-your-web-site-to-the-windows-8-metro-ui).
+  drupal_add_html_head(array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'msapplication-TileImage',
+      'content' => base_path() . path_to_theme() .'/images/apple-touch-icon-precomposed.png',
+    ),
+  ), 'metro-image');
+
+  // Metro tile color.
+  drupal_add_html_head(array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'msapplication-TileColor',
+      'content' => '#ffffff',
+    ),
+  ), 'metro-color');
+
   // Windows Phone 8 Viewport Fix: http://trentwalton.com/2013/01/16/windows-phone-8-viewport-fix/
   drupal_add_js("if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
       var msViewportStyle = document.createElement('style');
