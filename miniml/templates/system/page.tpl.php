@@ -1,6 +1,8 @@
-<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home">
-  <img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" />
-</a>
+<?php if ($logo): ?>
+  <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home">
+    <img src="<?php print $logo; ?>" alt="<?php print $site_name; ?>" />
+  </a>
+<?php endif; ?>
 
 <?php print render($page['header']); ?>
 
