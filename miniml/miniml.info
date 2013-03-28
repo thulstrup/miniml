@@ -1,0 +1,4 @@
+name = Miniml
+description = Miniml is a basetheme for cleaning up Drupals markup.
+screenshot = images/screenshot.png
+core = 7.x

@@ -1,0 +1,25 @@
+name = NEWTHEME
+description = This is NEWTHEME based on miniml - you should really rename it
+screenshot = images/screenshot.png
+core = 7.x
+base theme = miniml
+
+
+; Regions ====================================================================
+regions[header]         = Header
+regions[main_prefix]    = Main Region Prefix
+regions[highlighted]    = Highlighted
+regions[help]           = Help
+regions[content]        = Content
+regions[sidebar_first]  = Primary Sidebar
+regions[sidebar_second] = Secondary Sidebar
+regions[main_suffix]    = Main Region Suffix
+regions[footer]         = Footer
+
+
+; Stylesheets =================================================================
+; Stylesheets are added in hook_preprocess_html
+
+
+; JavaScripts =================================================================
+scripts[] = javascripts/scripts.js
