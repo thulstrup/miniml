@@ -34,7 +34,7 @@ function miniml_js_alter(&$javascript) {
   // Override Drupal's old version of jQuery with our own.
   // http://oldwildissue.wordpress.com/2012/11/19/drupal-7-manually-update-jquery-version
   $version = '1.9.1';
-  $path = path_to_theme() .'/javascripts/libs/jquery-'. $version .'.min.js';
+  $path = drupal_get_path('theme', 'miniml') .'/javascripts/libs/jquery-'. $version .'.min.js';
   $javascript[$path] = $javascript['misc/jquery.js'];
   $javascript[$path]['version'] = $version;
   $javascript[$path]['data'] = $path;
