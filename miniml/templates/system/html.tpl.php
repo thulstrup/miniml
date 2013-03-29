@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php print $language->language; ?>">
+<html<?php print $html_attributes; ?>>
   <head>
     <?php print $head; ?>
     <title><?php print $head_title; ?></title>

@@ -4,6 +4,15 @@
  * Implements hook_preprocess_html()
  */
 function miniml_preprocess_html(&$vars) {
+  $vars['base_path'] = base_path();
+  $vars['path_to_miniml'] = drupal_get_path('theme', 'miniml');
+
+  // Attributes for html element.
+  $vars['html_attributes_array'] = array(
+    'lang' => $vars['language']->language,
+    'dir' => $vars['language']->dir,
+  );
+
   drupal_add_js(array('themePath' => path_to_theme()), 'setting');
 
   // Viewport.
@@ -120,27 +129,29 @@ function miniml_preprocess_html(&$vars) {
 }
 
 /**
+ * Implements hook_process_html().
+ */
+function miniml_process_html(&$vars, $hook) {
+  // Flatten out html_attributes.
+  $vars['html_attributes'] = drupal_attributes($vars['html_attributes_array']);
+}
+
+/**
  * Implements hook_preprocess_html_tag().
  */
 function miniml_preprocess_html_tag(&$vars) {
   $element = &$vars['element'];
 
-  if ($element['#tag'] == 'meta' && isset($element['#attributes']['http-equiv']) && $element['#attributes']['http-equiv'] == 'Content-Type') {
-    $element['#attributes'] = array(
-     'charset' => 'utf-8',
-    );
-  }
-
   if (in_array($element['#tag'], array('script', 'link', 'style'))) {
     // Remove the "type" attribute.
     unset($element['#attributes']['type']);
 
-    // Remove CDATA comments.
-    if (isset($element['#value_prefix']) && ($element['#value_prefix'] == "\n<!--//--><![CDATA[//><!--\n" || $element['#value_prefix'] == "\n<!--/*--><![CDATA[/*><!--*/\n")) {
-      unset($element['#value_prefix']);
-    }
-    if (isset($element['#value_suffix']) && ($element['#value_suffix'] == "\n//--><!]]>\n" || $element['#value_suffix'] == "\n/*]]>*/-->\n")) {
-      unset($element['#value_suffix']);
+    // Remove redundant type attribute and CDATA comments.
+    unset($element['#attributes']['type'], $element['#value_prefix'], $element['#value_suffix']);
+
+    // Remove media="all" but leave others unaffected.
+    if (isset($element['#attributes']['media']) && $element['#attributes']['media'] === 'all') {
+      unset($element['#attributes']['media']);
     }
   }
 }
@@ -180,15 +191,27 @@ function miniml_preprocess_block(&$vars) {
   $vars['attributes_array']['class'] = preg_grep('/^block-/', $vars['classes_array'], PREG_GREP_INVERT);
 
   // Template for navigation blocks.
-  if (in_array($block->delta, array('main-menu', 'navigation', 'management'))) {
+  if (in_array($block->module, array('menu', 'menu_block'))) {
     $vars['attributes_array']['role'] = 'navigation';
     $vars['theme_hook_suggestions'][] = 'block__nav';
+  }
+
+  if ($block->module == 'search') {
+    $vars['attributes_array']['role'] = 'search';
   }
 
   // Test if we even have to have class defined.
   if (!$vars['attributes_array']['class']) {
     unset($vars['attributes_array']['class']);
   }
+}
+
+/**
+ * Implements hook_process_block().
+ */
+function miniml_process_block(&$vars, $hook) {
+  // Drupal 7 should use a $title variable instead of $block->subject.
+  $vars['title'] = $vars['block']->subject;
 }
 
 /**

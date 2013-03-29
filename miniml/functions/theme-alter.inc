@@ -4,6 +4,11 @@
  * Implements hook_html_head_alter()
  */
 function miniml_html_head_alter(&$elements) {
+  // Simplify the meta tag for character encoding.
+  if (isset($elements['system_meta_content_type']['#attributes']['content'])) {
+    $elements['system_meta_content_type']['#attributes'] = array('charset' => str_replace('text/html; charset=', '', $elements['system_meta_content_type']['#attributes']['content']));
+  }
+
   // Remove some meta tag.
   foreach ($elements as $key => $element) {
     if (isset($element['#attributes']['name']) && $element['#attributes']['name'] == 'Generator') {
