@@ -1,6 +1,6 @@
 <?php
 
-// Offload functions to a separate files.
+// Offload functions to separate files.
 require_once('functions/theme-custom.inc');
 require_once('functions/theme-overrides.inc');
 require_once('functions/theme-preprocess.inc');
