@@ -99,6 +99,15 @@ function miniml_preprocess_html(&$vars) {
     ),
   ), 'metro-color');
 
+  // Pinned site name.
+  drupal_add_html_head(array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'application-name',
+      'content' => variable_get('site_name', 'miniml'),
+    ),
+  ), 'metro-color');
+
   // Windows Phone 8 Viewport Fix: http://trentwalton.com/2013/01/16/windows-phone-8-viewport-fix/
   drupal_add_js("if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
       var msViewportStyle = document.createElement('style');
