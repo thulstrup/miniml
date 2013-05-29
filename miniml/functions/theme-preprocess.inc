@@ -108,19 +108,6 @@ function miniml_preprocess_html(&$vars) {
     ),
   ), 'metro-color');
 
-  // Windows Phone 8 Viewport Fix: http://trentwalton.com/2013/01/16/windows-phone-8-viewport-fix/
-  drupal_add_js("if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
-      var msViewportStyle = document.createElement('style');
-      msViewportStyle.appendChild(document.createTextNode('@-ms-viewport{width:auto!important}'));
-      document.getElementsByTagName('head')[0].appendChild(msViewportStyle);
-    }", array(
-    'type' => 'inline',
-    'scope' => 'header',
-    'group' => JS_THEME,
-    'every_page' => TRUE,
-    'weight' => -1,
-  ));
-
   // Body attributes.
   $remove_classes = array('html', 'front', 'not-front', 'logged-in', 'not-logged-in', 'no-sidebars', 'one-sidebar sidebar-first', 'one-sidebar sidebar-second', 'two-sidebars');
   $vars['classes_array'] = array_values(array_diff($vars['classes_array'], $remove_classes));
